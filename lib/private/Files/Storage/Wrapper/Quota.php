@@ -101,8 +101,8 @@ class Quota extends Wrapper {
 			return $this->getWrapperStorage()->file_put_contents($path, $data);
 		}
 		$free = $this->free_space($path);
-		if ($free < 0 || strlen($data) < $free) {
-			return $this->getWrapperStorage()->file_put_contents($path, $data);
+		if ($free < 0 || strlen($data) <= $free) {
+			return $this->storage->file_put_contents($path, $data);
 		} else {
 			return false;
 		}
@@ -114,8 +114,8 @@ class Quota extends Wrapper {
 			return $this->getWrapperStorage()->copy($source, $target);
 		}
 		$free = $this->free_space($target);
-		if ($free < 0 || $this->getSize($source) < $free) {
-			return $this->getWrapperStorage()->copy($source, $target);
+		if ($free < 0 || $this->getSize($source) <= $free) {
+			return $this->storage->copy($source, $target);
 		} else {
 			return false;
 		}
@@ -169,8 +169,8 @@ class Quota extends Wrapper {
 			return $this->getWrapperStorage()->copyFromStorage($sourceStorage, $sourceInternalPath, $targetInternalPath);
 		}
 		$free = $this->free_space($targetInternalPath);
-		if ($free < 0 || $this->getSize($sourceInternalPath, $sourceStorage) < $free) {
-			return $this->getWrapperStorage()->copyFromStorage($sourceStorage, $sourceInternalPath, $targetInternalPath);
+		if ($free < 0 || $this->getSize($sourceInternalPath, $sourceStorage) <= $free) {
+			return $this->storage->copyFromStorage($sourceStorage, $sourceInternalPath, $targetInternalPath);
 		} else {
 			return false;
 		}
@@ -182,8 +182,8 @@ class Quota extends Wrapper {
 			return $this->getWrapperStorage()->moveFromStorage($sourceStorage, $sourceInternalPath, $targetInternalPath);
 		}
 		$free = $this->free_space($targetInternalPath);
-		if ($free < 0 || $this->getSize($sourceInternalPath, $sourceStorage) < $free) {
-			return $this->getWrapperStorage()->moveFromStorage($sourceStorage, $sourceInternalPath, $targetInternalPath);
+		if ($free < 0 || $this->getSize($sourceInternalPath, $sourceStorage) <= $free) {
+			return $this->storage->moveFromStorage($sourceStorage, $sourceInternalPath, $targetInternalPath);
 		} else {
 			return false;
 		}
