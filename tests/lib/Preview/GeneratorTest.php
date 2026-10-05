@@ -18,6 +18,7 @@ use OCP\EventDispatcher\IEventDispatcher;
 use OCP\Files\File;
 use OCP\Files\Mount\IMountPoint;
 use OCP\Files\NotFoundException;
+use OCP\Files\SimpleFS\ISimpleFile;
 use OCP\IAppConfig;
 use OCP\IConfig;
 use OCP\IImage;
