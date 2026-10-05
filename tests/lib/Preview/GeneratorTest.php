@@ -200,6 +200,9 @@ class GeneratorTest extends TestCase {
 		$image->method('height')->willReturn(2048);
 		$image->method('valid')->willReturn(true);
 		$image->method('dataMimeType')->willReturn('image/png');
+		$image->method('data')->willReturn('my data');
+		$image->method('resizeCopy')
+			->willReturnCallback(fn (int $size): IImage => $this->getMockImage($size, $size, 'my resized data'));
 
 		$this->helper->method('getThumbnail')
 			->willReturnCallback(function ($provider, $file, $x, $y) use ($invalidProvider, $validProvider, $image): false|IImage {
